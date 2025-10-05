@@ -1,64 +1,36 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { GraduationCap, Home, Search, Calendar, MessageSquare, User } from "lucide-react";
-
 const Navigation = () => {
   const location = useLocation();
-  
   const isActive = (path: string) => location.pathname === path;
-  
-  return (
-    <nav className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-lg">
+  return <nav className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-lg">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-2 text-xl font-bold">
             <GraduationCap className="h-6 w-6 text-primary" />
-            <span className="gradient-text">SkillShare</span>
+            <span className="gradient-text">Learnix
+          </span>
           </Link>
           
           <div className="hidden md:flex items-center gap-6">
-            <Link 
-              to="/" 
-              className={`flex items-center gap-2 text-sm font-medium transition-colors ${
-                isActive('/') ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
+            <Link to="/" className={`flex items-center gap-2 text-sm font-medium transition-colors ${isActive('/') ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}>
               <Home className="h-4 w-4" />
               Home
             </Link>
-            <Link 
-              to="/browse" 
-              className={`flex items-center gap-2 text-sm font-medium transition-colors ${
-                isActive('/browse') ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
+            <Link to="/browse" className={`flex items-center gap-2 text-sm font-medium transition-colors ${isActive('/browse') ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}>
               <Search className="h-4 w-4" />
               Browse Skills
             </Link>
-            <Link 
-              to="/learner-dashboard" 
-              className={`flex items-center gap-2 text-sm font-medium transition-colors ${
-                isActive('/learner-dashboard') ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
+            <Link to="/learner-dashboard" className={`flex items-center gap-2 text-sm font-medium transition-colors ${isActive('/learner-dashboard') ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}>
               <Calendar className="h-4 w-4" />
               My Learning
             </Link>
-            <Link 
-              to="/mentor-dashboard" 
-              className={`flex items-center gap-2 text-sm font-medium transition-colors ${
-                isActive('/mentor-dashboard') ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
+            <Link to="/mentor-dashboard" className={`flex items-center gap-2 text-sm font-medium transition-colors ${isActive('/mentor-dashboard') ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}>
               <User className="h-4 w-4" />
               Teach
             </Link>
-            <Link 
-              to="/chat" 
-              className={`flex items-center gap-2 text-sm font-medium transition-colors ${
-                isActive('/chat') ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
+            <Link to="/chat" className={`flex items-center gap-2 text-sm font-medium transition-colors ${isActive('/chat') ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}>
               <MessageSquare className="h-4 w-4" />
               Messages
             </Link>
@@ -74,8 +46,6 @@ const Navigation = () => {
           </div>
         </div>
       </div>
-    </nav>
-  );
+    </nav>;
 };
-
 export default Navigation;
