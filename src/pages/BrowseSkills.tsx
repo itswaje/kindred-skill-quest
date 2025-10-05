@@ -15,7 +15,7 @@ const mentors = [
     skill: "Web Development",
     rating: 4.9,
     reviews: 47,
-    fee: 15,
+    fee: 400,
     avatar: "SC",
     availability: "Available",
     tags: ["React", "JavaScript", "CSS"],
@@ -26,7 +26,7 @@ const mentors = [
     skill: "UI/UX Design",
     rating: 4.8,
     reviews: 32,
-    fee: 20,
+    fee: 600,
     avatar: "MJ",
     availability: "Available",
     tags: ["Figma", "Prototyping", "Design Systems"],
@@ -37,7 +37,7 @@ const mentors = [
     skill: "Spanish Language",
     rating: 5.0,
     reviews: 68,
-    fee: 12,
+    fee: 300,
     avatar: "ER",
     availability: "Busy",
     tags: ["Conversational", "Grammar", "DELE Prep"],
@@ -48,7 +48,7 @@ const mentors = [
     skill: "Python Programming",
     rating: 4.7,
     reviews: 55,
-    fee: 18,
+    fee: 500,
     avatar: "DK",
     availability: "Available",
     tags: ["Data Science", "ML", "Django"],
@@ -59,7 +59,7 @@ const mentors = [
     skill: "Guitar Lessons",
     rating: 4.9,
     reviews: 41,
-    fee: 25,
+    fee: 700,
     avatar: "OT",
     availability: "Available",
     tags: ["Acoustic", "Theory", "Songs"],
@@ -70,7 +70,7 @@ const mentors = [
     skill: "Digital Marketing",
     rating: 4.6,
     reviews: 29,
-    fee: 16,
+    fee: 450,
     avatar: "AH",
     availability: "Available",
     tags: ["SEO", "Social Media", "Analytics"],
@@ -118,13 +118,13 @@ const BrowseSkills = () => {
                   <h3 className="font-semibold mb-3">Price Range</h3>
                   <div className="space-y-2">
                     <Button variant="ghost" className="justify-start w-full">
-                      $0 - $15
+                      ₹0 - ₹400
                     </Button>
                     <Button variant="ghost" className="justify-start w-full">
-                      $15 - $25
+                      ₹400 - ₹600
                     </Button>
                     <Button variant="ghost" className="justify-start w-full">
-                      $25+
+                      ₹600+
                     </Button>
                   </div>
                 </div>
@@ -203,7 +203,7 @@ const BrowseSkills = () => {
                     
                     <div className="flex items-center justify-between pt-4 border-t">
                       <div className="flex items-center gap-1 text-lg font-semibold">
-                        <DollarSign className="h-5 w-5 text-primary" />
+                        <span className="text-primary">₹</span>
                         {mentor.fee}
                         <span className="text-sm text-muted-foreground font-normal">/hour</span>
                       </div>

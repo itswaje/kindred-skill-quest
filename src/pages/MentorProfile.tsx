@@ -16,7 +16,7 @@ const MentorProfile = () => {
     avatar: "SC",
     rating: 4.9,
     reviews: 47,
-    fee: 15,
+    fee: 400,
     totalSessions: 120,
     bio: "Hi! I'm Sarah, a senior Computer Science major passionate about web development. I've been coding for 5 years and love helping others learn. My teaching style is patient, hands-on, and focused on real-world projects.",
     expertise: ["React", "JavaScript", "TypeScript", "Node.js", "CSS/Tailwind", "Git"],
@@ -150,8 +150,7 @@ const MentorProfile = () => {
               <CardContent className="p-6 space-y-4">
                 <div className="flex items-center justify-between pb-4 border-b">
                   <div className="flex items-center gap-1">
-                    <DollarSign className="h-6 w-6 text-primary" />
-                    <span className="text-3xl font-bold">{mentor.fee}</span>
+                    <span className="text-3xl font-bold text-primary">₹{mentor.fee}</span>
                     <span className="text-muted-foreground">/hour</span>
                   </div>
                 </div>

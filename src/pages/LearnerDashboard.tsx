@@ -37,7 +37,7 @@ const LearnerDashboard = () => {
       mentorAvatar: "ER",
       skill: "Spanish Language",
       date: "Jan 10, 2024",
-      amount: 12,
+      amount: 300,
       status: "completed",
     },
     {
@@ -46,7 +46,7 @@ const LearnerDashboard = () => {
       mentorAvatar: "DK",
       skill: "Python Programming",
       date: "Jan 5, 2024",
-      amount: 18,
+      amount: 500,
       status: "completed",
     },
   ];
@@ -157,7 +157,7 @@ const LearnerDashboard = () => {
                     
                     <div className="text-right">
                       <div className="flex items-center gap-1 text-lg font-semibold mb-2">
-                        <DollarSign className="h-5 w-5 text-primary" />
+                        <span className="text-primary">₹</span>
                         {session.amount}
                       </div>
                       <Button variant="outline" size="sm">Leave Review</Button>
@@ -180,21 +180,21 @@ const LearnerDashboard = () => {
                       <p className="font-medium">Session with Sarah Chen</p>
                       <p className="text-sm text-muted-foreground">Jan 15, 2024</p>
                     </div>
-                    <span className="font-semibold">$15</span>
+                    <span className="font-semibold">₹400</span>
                   </div>
                   <div className="flex items-center justify-between py-3 border-b">
                     <div>
                       <p className="font-medium">Session with Emily Rodriguez</p>
                       <p className="text-sm text-muted-foreground">Jan 10, 2024</p>
                     </div>
-                    <span className="font-semibold">$12</span>
+                    <span className="font-semibold">₹300</span>
                   </div>
                   <div className="flex items-center justify-between py-3">
                     <div>
                       <p className="font-medium">Session with David Kim</p>
                       <p className="text-sm text-muted-foreground">Jan 5, 2024</p>
                     </div>
-                    <span className="font-semibold">$18</span>
+                    <span className="font-semibold">₹500</span>
                   </div>
                 </div>
               </CardContent>

@@ -19,7 +19,7 @@ const Booking = () => {
     name: "Sarah Chen",
     skill: "Web Development",
     avatar: "SC",
-    fee: 15,
+    fee: 400,
   };
 
   const availableTimes = [
@@ -126,15 +126,15 @@ const Booking = () => {
                   <div className="pt-4 border-t space-y-2">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Session (1 hour)</span>
-                      <span className="font-semibold">${mentor.fee}</span>
+                      <span className="font-semibold">₹{mentor.fee}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Platform fee</span>
-                      <span className="font-semibold">$2</span>
+                      <span className="font-semibold">₹50</span>
                     </div>
                     <div className="flex justify-between pt-2 border-t">
                       <span className="font-semibold">Total</span>
-                      <span className="text-2xl font-bold text-primary">${mentor.fee + 2}</span>
+                      <span className="text-2xl font-bold text-primary">₹{mentor.fee + 50}</span>
                     </div>
                   </div>
                   
