@@ -11,36 +11,42 @@ const categories = [
     title: "Coding & Tech",
     description: "Master programming, web dev, and more",
     color: "from-primary/20 to-primary/5",
+    skill: "Coding",
   },
   {
     icon: Palette,
     title: "Design",
     description: "Learn UI/UX, graphic design, and creativity",
     color: "from-secondary/20 to-secondary/5",
+    skill: "Design",
   },
   {
     icon: Languages,
     title: "Languages",
     description: "Practice with native speakers worldwide",
     color: "from-accent/20 to-accent/5",
+    skill: "Languages",
   },
   {
     icon: Music,
     title: "Music",
     description: "Guitar, piano, vocals, and production",
     color: "from-purple-200/50 to-purple-100/20",
+    skill: "Music",
   },
   {
     icon: Camera,
     title: "Photography",
     description: "Capture moments, edit like a pro",
     color: "from-pink-200/50 to-pink-100/20",
+    skill: "Photography",
   },
   {
     icon: TrendingUp,
     title: "Business",
     description: "Marketing, finance, and entrepreneurship",
     color: "from-orange-200/50 to-orange-100/20",
+    skill: "Business",
   },
 ];
 
@@ -102,7 +108,7 @@ const Home = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((category, index) => (
-              <Link key={category.title} to="/browse">
+              <Link key={category.title} to={`/browse?skill=${category.skill}`}>
                 <Card 
                   className="card-hover cursor-pointer animate-fade-in"
                   style={{ animationDelay: `${index * 0.1}s` }}

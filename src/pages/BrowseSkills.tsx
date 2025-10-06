@@ -1,18 +1,20 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Search, Star, DollarSign, Clock } from "lucide-react";
+import { Search, Star, ArrowLeft } from "lucide-react";
 
 const mentors = [
   {
     id: 1,
     name: "Sarah Chen",
     skill: "Web Development",
+    category: "Coding",
+    experience: "3 years",
     rating: 4.9,
     reviews: 47,
     fee: 150,
@@ -24,6 +26,8 @@ const mentors = [
     id: 2,
     name: "Marcus Johnson",
     skill: "UI/UX Design",
+    category: "Design",
+    experience: "2 years",
     rating: 4.8,
     reviews: 32,
     fee: 180,
@@ -35,6 +39,8 @@ const mentors = [
     id: 3,
     name: "Emily Rodriguez",
     skill: "Spanish Language",
+    category: "Languages",
+    experience: "4 years",
     rating: 5.0,
     reviews: 68,
     fee: 120,
@@ -46,6 +52,8 @@ const mentors = [
     id: 4,
     name: "David Kim",
     skill: "Python Programming",
+    category: "Coding",
+    experience: "3 years",
     rating: 4.7,
     reviews: 55,
     fee: 160,
@@ -57,6 +65,8 @@ const mentors = [
     id: 5,
     name: "Olivia Thompson",
     skill: "Guitar Lessons",
+    category: "Music",
+    experience: "5 years",
     rating: 4.9,
     reviews: 41,
     fee: 200,
@@ -68,6 +78,8 @@ const mentors = [
     id: 6,
     name: "Ahmed Hassan",
     skill: "Digital Marketing",
+    category: "Business",
+    experience: "2 years",
     rating: 4.6,
     reviews: 29,
     fee: 140,
@@ -78,10 +90,29 @@ const mentors = [
 ];
 
 const BrowseSkills = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const skillFromUrl = searchParams.get("skill");
+  
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState(skillFromUrl || "All");
 
-  const categories = ["All", "Coding", "Design", "Languages", "Music", "Business"];
+  useEffect(() => {
+    if (skillFromUrl) {
+      setSelectedCategory(skillFromUrl);
+    }
+  }, [skillFromUrl]);
+
+  const categories = ["All", "Coding", "Design", "Languages", "Music", "Business", "Photography"];
+  
+  const filteredMentors = mentors.filter((mentor) => {
+    const matchesCategory = selectedCategory === "All" || mentor.category === selectedCategory;
+    const matchesSearch = searchQuery === "" || 
+      mentor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      mentor.skill.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      mentor.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <div className="min-h-screen bg-muted/30">
@@ -89,8 +120,24 @@ const BrowseSkills = () => {
       
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8 animate-fade-in">
-          <h1 className="text-4xl font-bold mb-2">Find Your Mentor</h1>
-          <p className="text-muted-foreground">Browse skilled student mentors ready to help you learn</p>
+          {skillFromUrl && (
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate("/")} 
+              className="mb-4 -ml-2"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Skills
+            </Button>
+          )}
+          <h1 className="text-4xl font-bold mb-2">
+            {skillFromUrl ? `${skillFromUrl} Mentors` : "Find Your Mentor"}
+          </h1>
+          <p className="text-muted-foreground">
+            {skillFromUrl 
+              ? `Connect with expert ${skillFromUrl.toLowerCase()} mentors` 
+              : "Browse skilled student mentors ready to help you learn"}
+          </p>
         </div>
 
         {/* Search and Filters */}
@@ -161,7 +208,7 @@ const BrowseSkills = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              {mentors.map((mentor, index) => (
+              {filteredMentors.map((mentor, index) => (
                 <Card 
                   key={mentor.id} 
                   className="card-hover animate-fade-in"
@@ -179,6 +226,7 @@ const BrowseSkills = () => {
                       <div className="flex-1">
                         <h3 className="font-semibold text-lg">{mentor.name}</h3>
                         <p className="text-muted-foreground">{mentor.skill}</p>
+                        <p className="text-sm text-muted-foreground">{mentor.experience} experience</p>
                         
                         <div className="flex items-center gap-3 mt-2">
                           <div className="flex items-center gap-1">
@@ -211,9 +259,14 @@ const BrowseSkills = () => {
                         <span className="text-sm text-muted-foreground font-normal">/hour</span>
                       </div>
                       
-                      <Link to={`/mentor/${mentor.id}`}>
-                        <Button>View Profile</Button>
-                      </Link>
+                      <div className="flex gap-2">
+                        <Link to={`/mentor/${mentor.id}`}>
+                          <Button variant="outline" size="sm">View Profile</Button>
+                        </Link>
+                        <Link to={`/booking/${mentor.id}`}>
+                          <Button size="sm">Book Session</Button>
+                        </Link>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
