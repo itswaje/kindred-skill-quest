@@ -15,7 +15,7 @@ const mentors = [
     skill: "Web Development",
     rating: 4.9,
     reviews: 47,
-    fee: 400,
+    fee: 150,
     avatar: "SC",
     availability: "Available",
     tags: ["React", "JavaScript", "CSS"],
@@ -26,7 +26,7 @@ const mentors = [
     skill: "UI/UX Design",
     rating: 4.8,
     reviews: 32,
-    fee: 600,
+    fee: 180,
     avatar: "MJ",
     availability: "Available",
     tags: ["Figma", "Prototyping", "Design Systems"],
@@ -37,7 +37,7 @@ const mentors = [
     skill: "Spanish Language",
     rating: 5.0,
     reviews: 68,
-    fee: 300,
+    fee: 120,
     avatar: "ER",
     availability: "Busy",
     tags: ["Conversational", "Grammar", "DELE Prep"],
@@ -48,7 +48,7 @@ const mentors = [
     skill: "Python Programming",
     rating: 4.7,
     reviews: 55,
-    fee: 500,
+    fee: 160,
     avatar: "DK",
     availability: "Available",
     tags: ["Data Science", "ML", "Django"],
@@ -59,7 +59,7 @@ const mentors = [
     skill: "Guitar Lessons",
     rating: 4.9,
     reviews: 41,
-    fee: 700,
+    fee: 200,
     avatar: "OT",
     availability: "Available",
     tags: ["Acoustic", "Theory", "Songs"],
@@ -70,7 +70,7 @@ const mentors = [
     skill: "Digital Marketing",
     rating: 4.6,
     reviews: 29,
-    fee: 450,
+    fee: 140,
     avatar: "AH",
     availability: "Available",
     tags: ["SEO", "Social Media", "Analytics"],
@@ -118,13 +118,16 @@ const BrowseSkills = () => {
                   <h3 className="font-semibold mb-3">Price Range</h3>
                   <div className="space-y-2">
                     <Button variant="ghost" className="justify-start w-full">
-                      ₹0 - ₹400
+                      ₹0 - ₹100
                     </Button>
                     <Button variant="ghost" className="justify-start w-full">
-                      ₹400 - ₹600
+                      ₹100 - ₹150
                     </Button>
                     <Button variant="ghost" className="justify-start w-full">
-                      ₹600+
+                      ₹150 - ₹200
+                    </Button>
+                    <Button variant="ghost" className="justify-start w-full">
+                      ₹200+
                     </Button>
                   </div>
                 </div>

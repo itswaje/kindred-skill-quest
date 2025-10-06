@@ -16,7 +16,7 @@ const MentorProfile = () => {
     avatar: "SC",
     rating: 4.9,
     reviews: 47,
-    fee: 400,
+    fee: 150,
     totalSessions: 120,
     bio: "Hi! I'm Sarah, a senior Computer Science major passionate about web development. I've been coding for 5 years and love helping others learn. My teaching style is patient, hands-on, and focused on real-world projects.",
     expertise: ["React", "JavaScript", "TypeScript", "Node.js", "CSS/Tailwind", "Git"],

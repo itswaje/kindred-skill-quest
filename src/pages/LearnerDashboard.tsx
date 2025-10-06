@@ -37,7 +37,7 @@ const LearnerDashboard = () => {
       mentorAvatar: "ER",
       skill: "Spanish Language",
       date: "Jan 10, 2024",
-      amount: 300,
+      amount: 120,
       status: "completed",
     },
     {
@@ -46,7 +46,7 @@ const LearnerDashboard = () => {
       mentorAvatar: "DK",
       skill: "Python Programming",
       date: "Jan 5, 2024",
-      amount: 500,
+      amount: 160,
       status: "completed",
     },
   ];
@@ -180,21 +180,21 @@ const LearnerDashboard = () => {
                       <p className="font-medium">Session with Sarah Chen</p>
                       <p className="text-sm text-muted-foreground">Jan 15, 2024</p>
                     </div>
-                    <span className="font-semibold">₹400</span>
+                    <span className="font-semibold">₹150</span>
                   </div>
                   <div className="flex items-center justify-between py-3 border-b">
                     <div>
                       <p className="font-medium">Session with Emily Rodriguez</p>
                       <p className="text-sm text-muted-foreground">Jan 10, 2024</p>
                     </div>
-                    <span className="font-semibold">₹300</span>
+                    <span className="font-semibold">₹120</span>
                   </div>
                   <div className="flex items-center justify-between py-3">
                     <div>
                       <p className="font-medium">Session with David Kim</p>
                       <p className="text-sm text-muted-foreground">Jan 5, 2024</p>
                     </div>
-                    <span className="font-semibold">₹500</span>
+                    <span className="font-semibold">₹160</span>
                   </div>
                 </div>
               </CardContent>

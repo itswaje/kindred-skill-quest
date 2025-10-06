@@ -137,7 +137,7 @@ const Payment = () => {
                   <div className="pt-4 border-t">
                     <div className="flex justify-between items-center mb-4">
                       <span className="text-lg font-semibold">Total Amount</span>
-                      <span className="text-2xl font-bold text-primary">₹450</span>
+                      <span className="text-2xl font-bold text-primary">₹170</span>
                     </div>
                     
                     <Button type="submit" className="w-full btn-gradient" size="lg">

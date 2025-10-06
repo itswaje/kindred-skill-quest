@@ -8,7 +8,7 @@ import { Calendar, DollarSign, TrendingUp, Users, CheckCircle, Clock, X } from "
 
 const MentorDashboard = () => {
   const stats = [
-    { label: "Total Earnings", value: "₹30,000", icon: DollarSign, color: "text-green-600" },
+    { label: "Total Earnings", value: "₹12,000", icon: DollarSign, color: "text-green-600" },
     { label: "Sessions This Month", value: "24", icon: Calendar, color: "text-blue-600" },
     { label: "Active Students", value: "18", icon: Users, color: "text-purple-600" },
     { label: "Rating", value: "4.9", icon: TrendingUp, color: "text-yellow-600" },
@@ -200,21 +200,21 @@ const MentorDashboard = () => {
                       <p className="font-medium">Session with Mike Thompson</p>
                       <p className="text-sm text-muted-foreground">Jan 15, 2024</p>
                     </div>
-                    <span className="font-semibold text-green-600">+₹400</span>
+                    <span className="font-semibold text-green-600">+₹150</span>
                   </div>
                   <div className="flex items-center justify-between py-3 border-b">
                     <div>
                       <p className="font-medium">Session with Lisa Park</p>
                       <p className="text-sm text-muted-foreground">Jan 14, 2024</p>
                     </div>
-                    <span className="font-semibold text-green-600">+₹400</span>
+                    <span className="font-semibold text-green-600">+₹150</span>
                   </div>
                   <div className="flex items-center justify-between py-3">
                     <div>
                       <p className="font-medium">Session with James Wilson</p>
                       <p className="text-sm text-muted-foreground">Jan 13, 2024</p>
                     </div>
-                    <span className="font-semibold text-green-600">+₹400</span>
+                    <span className="font-semibold text-green-600">+₹150</span>
                   </div>
                   
                   <div className="pt-4 border-t">
