@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, DollarSign, TrendingUp, Users, CheckCircle, Clock, X } from "lucide-react";
+import { Calendar, DollarSign, TrendingUp, Users, CheckCircle, Clock, X, MessageSquare, Video } from "lucide-react";
+import { ReviewDialog } from "@/components/ReviewDialog";
+import { Link } from "react-router-dom";
 
 const MentorDashboard = () => {
   const stats = [
@@ -52,8 +54,18 @@ const MentorDashboard = () => {
       
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8 animate-fade-in">
-          <h1 className="text-3xl font-bold mb-2">Mentor Dashboard</h1>
-          <p className="text-muted-foreground">Manage your sessions and track your earnings</p>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">Mentor Dashboard</h1>
+              <p className="text-muted-foreground">Manage your sessions and track your earnings</p>
+            </div>
+            <Link to="/chat">
+              <Button variant="outline">
+                <MessageSquare className="mr-2 h-4 w-4" />
+                Messages
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Stats Grid */}
@@ -125,7 +137,7 @@ const MentorDashboard = () => {
                       </div>
                     </div>
                     
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
                       <Button className="bg-green-600 hover:bg-green-700">
                         <CheckCircle className="h-4 w-4 mr-2" />
                         Accept
@@ -134,6 +146,12 @@ const MentorDashboard = () => {
                         <X className="h-4 w-4 mr-2" />
                         Decline
                       </Button>
+                      <Link to="/chat">
+                        <Button variant="ghost" size="sm">
+                          <MessageSquare className="h-4 w-4 mr-2" />
+                          Message
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </CardContent>
@@ -181,7 +199,17 @@ const MentorDashboard = () => {
                       </div>
                     </div>
                     
-                    <Button>Start Session</Button>
+                    <div className="flex flex-wrap gap-2">
+                      <Button className="btn-gradient">
+                        <Video className="h-4 w-4 mr-2" />
+                        Start Session
+                      </Button>
+                      <ReviewDialog 
+                        personName={session.student}
+                        personType="learner"
+                        sessionId={session.id.toString()}
+                      />
+                    </div>
                   </div>
                 </CardContent>
               </Card>

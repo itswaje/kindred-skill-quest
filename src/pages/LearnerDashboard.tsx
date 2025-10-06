@@ -1,12 +1,22 @@
 import Navigation from "@/components/Navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Calendar, Clock, DollarSign, Video, CheckCircle } from "lucide-react";
+import { Calendar, Clock, Video, CheckCircle, Search, MessageSquare, RefreshCw } from "lucide-react";
+import { RatingBadge } from "@/components/RatingBadge";
+import { ReviewDialog } from "@/components/ReviewDialog";
+import { Link } from "react-router-dom";
 
 const LearnerDashboard = () => {
+  // Mock learner stats
+  const learnerStats = {
+    completionRate: 95,
+    punctualityScore: 92,
+    responsivenessScore: 88,
+  };
+
   const upcomingSessions = [
     {
       id: 1,
@@ -57,8 +67,41 @@ const LearnerDashboard = () => {
       
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8 animate-fade-in">
-          <h1 className="text-3xl font-bold mb-2">My Learning Dashboard</h1>
-          <p className="text-muted-foreground">Track your sessions and progress</p>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">My Learning Dashboard</h1>
+              <p className="text-muted-foreground">Track your sessions and progress</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Link to="/browse">
+                <Button className="btn-gradient">
+                  <Search className="mr-2 h-4 w-4" />
+                  Book Session
+                </Button>
+              </Link>
+              <Link to="/chat">
+                <Button variant="outline">
+                  <MessageSquare className="mr-2 h-4 w-4" />
+                  Messages
+                </Button>
+              </Link>
+            </div>
+          </div>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle>Your Reliability Rating</CardTitle>
+              <CardDescription>Based on your session history and mentor feedback</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <RatingBadge 
+                completionRate={learnerStats.completionRate}
+                punctualityScore={learnerStats.punctualityScore}
+                responsivenessScore={learnerStats.responsivenessScore}
+                size="lg"
+              />
+            </CardContent>
+          </Card>
         </div>
 
         <Tabs defaultValue="upcoming" className="space-y-6">
@@ -108,12 +151,21 @@ const LearnerDashboard = () => {
                       </div>
                     </div>
                     
-                    <div className="flex gap-2">
-                      <Button variant="outline">
+                    <div className="flex flex-wrap gap-2">
+                      <Button className="btn-gradient">
                         <Video className="h-4 w-4 mr-2" />
                         Join
                       </Button>
-                      <Button variant="ghost">Reschedule</Button>
+                      <Button variant="outline">
+                        <RefreshCw className="h-4 w-4 mr-2" />
+                        Reschedule
+                      </Button>
+                      <Link to="/chat">
+                        <Button variant="ghost" size="sm">
+                          <MessageSquare className="h-4 w-4 mr-2" />
+                          Message
+                        </Button>
+                      </Link>
                     </div>
                   </div>
                 </CardContent>
@@ -160,7 +212,11 @@ const LearnerDashboard = () => {
                         <span className="text-primary">₹</span>
                         {session.amount}
                       </div>
-                      <Button variant="outline" size="sm">Leave Review</Button>
+                      <ReviewDialog 
+                        personName={session.mentor}
+                        personType="mentor"
+                        sessionId={session.id.toString()}
+                      />
                     </div>
                   </div>
                 </CardContent>
