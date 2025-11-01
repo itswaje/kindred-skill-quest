@@ -1,7 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Home, Search, Calendar, MessageSquare, User, Moon, Sun } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
+import { supabase } from "@/integrations/supabase/client";
+import { useUnreadMessages } from "@/hooks/useUnreadMessages";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +16,21 @@ const Navigation = () => {
   const location = useLocation();
   const { theme, setTheme } = useTheme();
   const isActive = (path: string) => location.pathname === path;
+  const [userId, setUserId] = useState<string>();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUserId(session?.user.id);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUserId(session?.user.id);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const unreadCount = useUnreadMessages(userId);
   return <nav className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-lg">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
@@ -38,9 +57,17 @@ const Navigation = () => {
               <User className="h-4 w-4" />
               Teach
             </Link>
-            <Link to="/chat" className={`flex items-center gap-2 text-sm font-medium transition-colors ${isActive('/chat') ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}>
+            <Link to="/chat" className={`flex items-center gap-2 text-sm font-medium transition-colors relative ${isActive('/chat') ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}`}>
               <MessageSquare className="h-4 w-4" />
               Messages
+              {unreadCount > 0 && (
+                <Badge 
+                  variant="destructive" 
+                  className="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center p-0 text-xs"
+                >
+                  {unreadCount}
+                </Badge>
+              )}
             </Link>
           </div>
           
