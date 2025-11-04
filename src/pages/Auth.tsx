@@ -16,10 +16,6 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [age, setAge] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [role, setRole] = useState<"mentor" | "learner">("learner");
-  const [fieldOfExpertise, setFieldOfExpertise] = useState("");
-  const [bio, setBio] = useState("");
 
   useEffect(() => {
     // Check if user is already logged in
@@ -52,10 +48,6 @@ const Auth = () => {
         emailRedirectTo: `${window.location.origin}/`,
         data: {
           age: age,
-          full_name: fullName,
-          role: role,
-          field_of_expertise: role === "mentor" ? fieldOfExpertise : null,
-          bio: bio,
         },
       },
     });
@@ -143,17 +135,6 @@ const Auth = () => {
             <TabsContent value="signup">
               <form onSubmit={handleSignUp} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-name">Full Name</Label>
-                  <Input
-                    id="signup-name"
-                    type="text"
-                    placeholder="John Doe"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
                   <Label htmlFor="signup-email">Email</Label>
                   <Input
                     id="signup-email"
@@ -175,42 +156,6 @@ const Auth = () => {
                     required
                     min="13"
                     max="120"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="signup-role">I am a</Label>
-                  <select
-                    id="signup-role"
-                    value={role}
-                    onChange={(e) => setRole(e.target.value as "mentor" | "learner")}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    required
-                  >
-                    <option value="learner">Learner</option>
-                    <option value="mentor">Mentor</option>
-                  </select>
-                </div>
-                {role === "mentor" && (
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-expertise">Field of Expertise</Label>
-                    <Input
-                      id="signup-expertise"
-                      type="text"
-                      placeholder="e.g., Web Development, Graphic Design"
-                      value={fieldOfExpertise}
-                      onChange={(e) => setFieldOfExpertise(e.target.value)}
-                      required
-                    />
-                  </div>
-                )}
-                <div className="space-y-2">
-                  <Label htmlFor="signup-bio">Short Bio</Label>
-                  <Input
-                    id="signup-bio"
-                    type="text"
-                    placeholder="Tell us about yourself"
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">

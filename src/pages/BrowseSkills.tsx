@@ -6,78 +6,113 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Search, Star, ArrowLeft, Loader2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { Search, Star, ArrowLeft } from "lucide-react";
 
-type Mentor = {
-  id: string;
-  full_name: string;
-  field_of_expertise: string;
-  bio: string;
-  average_rating: number;
-  profile_photo_url: string | null;
-};
+const mentors = [
+  {
+    id: 1,
+    name: "RIzwana",
+    skill: "Web Development",
+    category: "Coding",
+    experience: "1.5 years",
+    rating: 4.9,
+    reviews: 47,
+    fee: 75,
+    avatar: "SC",
+    availability: "Available",
+    tags: ["React", "JavaScript", "CSS"],
+  },
+  {
+    id: 2,
+    name: "Nivetha",
+    skill: "UI/UX Design",
+    category: "Design",
+    experience: "2 years",
+    rating: 4.8,
+    reviews: 32,
+    fee: 80,
+    avatar: "MJ",
+    availability: "Available",
+    tags: ["Figma", "Prototyping", "Design Systems"],
+  },
+  {
+    id: 3,
+    name: "Wajeeha",
+    skill: "French",
+    category: "Languages",
+    experience: "1 years",
+    rating: 5.0,
+    reviews: 68,
+    fee: 50,
+    avatar: "ER",
+    availability: "Busy",
+    tags: ["Conversational", "Grammar"],
+  },
+  {
+    id: 4,
+    name: "David Kim",
+    skill: "Python Programming",
+    category: "Coding",
+    experience: "3 years",
+    rating: 4.7,
+    reviews: 55,
+    fee: 60,
+    avatar: "DK",
+    availability: "Available",
+    tags: ["Data Science", "ML", "Django"],
+  },
+  {
+    id: 5,
+    name: "Iniyan",
+    skill: "Maths",
+    category: "Enginnering maths",
+    experience: "2 years",
+    rating: 4.9,
+    reviews: 41,
+    fee: 50,
+    avatar: "OT",
+    availability: "Available",
+    tags: ["Differentiation", "Integration", "Eigen value"],
+  },
+  {
+    id: 6,
+    name: "Lalitha Banu",
+    skill: "Digital Marketing",
+    category: "Business",
+    experience: "2 years",
+    rating: 4.6,
+    reviews: 29,
+    fee: 90,
+    avatar: "AH",
+    availability: "Available",
+    tags: ["SEO", "Social Media", "Analytics"],
+  },
+];
 
 const BrowseSkills = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { toast } = useToast();
   const skillFromUrl = searchParams.get("skill");
   
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(skillFromUrl || "All");
-  const [mentors, setMentors] = useState<Mentor[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (skillFromUrl) {
       setSelectedCategory(skillFromUrl);
     }
-    fetchMentors();
   }, [skillFromUrl]);
-
-  const fetchMentors = async () => {
-    try {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('role', 'mentor');
-
-      if (error) throw error;
-
-      setMentors(data || []);
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to load mentors",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const categories = ["All", "Coding", "Design", "Languages", "Music", "Business", "Photography"];
   
   const filteredMentors = mentors.filter((mentor) => {
-    const matchesCategory = selectedCategory === "All" || mentor.field_of_expertise?.toLowerCase().includes(selectedCategory.toLowerCase());
+    const matchesCategory = selectedCategory === "All" || mentor.category === selectedCategory;
     const matchesSearch = searchQuery === "" || 
-      mentor.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      mentor.field_of_expertise?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      mentor.bio?.toLowerCase().includes(searchQuery.toLowerCase());
+      mentor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      mentor.skill.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      mentor.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
-
-  const getInitials = (name: string) => {
-    return name
-      ?.split(' ')
-      .map(n => n[0])
-      .join('')
-      .toUpperCase()
-      .slice(0, 2) || '??';
-  };
 
   return (
     <div className="min-h-screen bg-muted/30">
@@ -172,62 +207,71 @@ const BrowseSkills = () => {
               />
             </div>
 
-            {loading ? (
-              <div className="flex justify-center items-center py-12">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              </div>
-            ) : filteredMentors.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground">No mentors found. Try adjusting your search.</p>
-              </div>
-            ) : (
-              <div className="grid md:grid-cols-2 gap-6">
-                {filteredMentors.map((mentor, index) => (
-                  <Card 
-                    key={mentor.id} 
-                    className="card-hover animate-fade-in cursor-pointer"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                    onClick={() => navigate(`/mentor/${mentor.id}`)}
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-4 mb-4">
-                        <Avatar className="h-16 w-16">
-                          <AvatarImage src={mentor.profile_photo_url || ""} />
-                          <AvatarFallback className="bg-primary/10 text-primary font-semibold">
-                            {getInitials(mentor.full_name)}
-                          </AvatarFallback>
-                        </Avatar>
+            <div className="grid md:grid-cols-2 gap-6">
+              {filteredMentors.map((mentor, index) => (
+                <Card 
+                  key={mentor.id} 
+                  className="card-hover animate-fade-in"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4 mb-4">
+                      <Avatar className="h-16 w-16">
+                        <AvatarImage src="" />
+                        <AvatarFallback className="bg-primary/10 text-primary font-semibold">
+                          {mentor.avatar}
+                        </AvatarFallback>
+                      </Avatar>
+                      
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg">{mentor.name}</h3>
+                        <p className="text-muted-foreground">{mentor.skill}</p>
+                        <p className="text-sm text-muted-foreground">{mentor.experience} experience</p>
                         
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-lg">{mentor.full_name}</h3>
-                          <p className="text-muted-foreground">{mentor.field_of_expertise}</p>
-                          {mentor.bio && (
-                            <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
-                              {mentor.bio}
-                            </p>
-                          )}
-                          
-                          <div className="flex items-center gap-1 mt-2">
+                        <div className="flex items-center gap-3 mt-2">
+                          <div className="flex items-center gap-1">
                             <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                            <span className="font-medium">{mentor.average_rating.toFixed(1)}</span>
-                            <span className="text-sm text-muted-foreground">rating</span>
+                            <span className="font-medium">{mentor.rating}</span>
+                            <span className="text-sm text-muted-foreground">
+                              ({mentor.reviews})
+                            </span>
                           </div>
+                          
+                          <Badge variant={mentor.availability === "Available" ? "default" : "secondary"}>
+                            {mentor.availability}
+                          </Badge>
                         </div>
                       </div>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {mentor.tags.map((tag) => (
+                        <Badge key={tag} variant="outline" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                    
+                    <div className="flex items-center justify-between pt-4 border-t">
+                      <div className="flex items-center gap-1 text-lg font-semibold">
+                        <span className="text-primary">₹</span>
+                        {mentor.fee}
+                        <span className="text-sm text-muted-foreground font-normal">/hour</span>
+                      </div>
                       
-                      <div className="flex gap-2 pt-4 border-t">
-                        <Link to={`/mentor/${mentor.id}`} onClick={(e) => e.stopPropagation()}>
+                      <div className="flex gap-2">
+                        <Link to={`/mentor/${mentor.id}`}>
                           <Button variant="outline" size="sm">View Profile</Button>
                         </Link>
-                        <Link to={`/booking/${mentor.id}`} onClick={(e) => e.stopPropagation()}>
+                        <Link to={`/booking/${mentor.id}`}>
                           <Button size="sm">Book Session</Button>
                         </Link>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </div>

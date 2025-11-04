@@ -77,38 +77,20 @@ export type Database = {
       profiles: {
         Row: {
           age: number | null
-          average_rating: number | null
-          bio: string | null
           created_at: string
-          field_of_expertise: string | null
-          full_name: string | null
           id: string
-          profile_photo_url: string | null
-          role: string | null
           updated_at: string
         }
         Insert: {
           age?: number | null
-          average_rating?: number | null
-          bio?: string | null
           created_at?: string
-          field_of_expertise?: string | null
-          full_name?: string | null
           id: string
-          profile_photo_url?: string | null
-          role?: string | null
           updated_at?: string
         }
         Update: {
           age?: number | null
-          average_rating?: number | null
-          bio?: string | null
           created_at?: string
-          field_of_expertise?: string | null
-          full_name?: string | null
           id?: string
-          profile_photo_url?: string | null
-          role?: string | null
           updated_at?: string
         }
         Relationships: []
