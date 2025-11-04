@@ -15,6 +15,7 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [age, setAge] = useState("");
 
   useEffect(() => {
     // Check if user is already logged in
@@ -45,6 +46,9 @@ const Auth = () => {
       password,
       options: {
         emailRedirectTo: `${window.location.origin}/`,
+        data: {
+          age: age,
+        },
       },
     });
 
@@ -150,6 +154,19 @@ const Auth = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="signup-age">Age</Label>
+                  <Input
+                    id="signup-age"
+                    type="number"
+                    placeholder="Enter your age"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                    required
+                    min="13"
+                    max="120"
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
