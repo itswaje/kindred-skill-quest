@@ -146,6 +146,19 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
+                  <Label htmlFor="signup-age">Age</Label>
+                  <Input
+                    id="signup-age"
+                    type="number"
+                    placeholder="18"
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                    required
+                    min="13"
+                    max="120"
+                  />
+                </div>
+                <div className="space-y-2">
                   <Label htmlFor="signup-password">Password</Label>
                   <Input
                     id="signup-password"
@@ -154,19 +167,6 @@ const Auth = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="signup-age">Age</Label>
-                  <Input
-                    id="signup-age"
-                    type="number"
-                    placeholder="Enter your age"
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
-                    required
-                    min="13"
-                    max="120"
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
