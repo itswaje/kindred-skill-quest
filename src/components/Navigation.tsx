@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Home, Search, Calendar, MessageSquare, User, Moon, Sun } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
+import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useUnreadMessages } from "@/hooks/useUnreadMessages";
 import {
@@ -15,20 +16,32 @@ import {
 const Navigation = () => {
   const location = useLocation();
   const { theme, setTheme } = useTheme();
+  const { toast } = useToast();
   const isActive = (path: string) => location.pathname === path;
   const [userId, setUserId] = useState<string>();
+  const [userEmail, setUserEmail] = useState<string>();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUserId(session?.user.id);
+      setUserEmail(session?.user.email);
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUserId(session?.user.id);
+      setUserEmail(session?.user.email);
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    toast({
+      title: "Signed out",
+      description: "You have been successfully signed out.",
+    });
+  };
 
   const unreadCount = useUnreadMessages(userId);
   return <nav className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-lg">
@@ -92,12 +105,31 @@ const Navigation = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Link to="/auth">
-              <Button variant="ghost" size="sm">Sign In</Button>
-            </Link>
-            <Link to="/auth?mode=signup">
-              <Button size="sm" className="btn-gradient">Get Started</Button>
-            </Link>
+            
+            {userEmail ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="gap-2">
+                    <User className="h-4 w-4" />
+                    <span className="hidden md:inline">{userEmail}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={handleLogout}>
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Link to="/auth">
+                  <Button variant="ghost" size="sm">Sign In</Button>
+                </Link>
+                <Link to="/auth?mode=signup">
+                  <Button size="sm" className="btn-gradient">Get Started</Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
