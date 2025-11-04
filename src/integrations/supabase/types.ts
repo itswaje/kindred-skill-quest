@@ -77,38 +77,20 @@ export type Database = {
       profiles: {
         Row: {
           age: number | null
-          average_rating: number | null
-          bio: string | null
           created_at: string
-          field_of_expertise: string | null
-          full_name: string | null
           id: string
-          profile_photo_url: string | null
-          role: string | null
           updated_at: string
         }
         Insert: {
           age?: number | null
-          average_rating?: number | null
-          bio?: string | null
           created_at?: string
-          field_of_expertise?: string | null
-          full_name?: string | null
           id: string
-          profile_photo_url?: string | null
-          role?: string | null
           updated_at?: string
         }
         Update: {
           age?: number | null
-          average_rating?: number | null
-          bio?: string | null
           created_at?: string
-          field_of_expertise?: string | null
-          full_name?: string | null
           id?: string
-          profile_photo_url?: string | null
-          role?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -142,7 +124,7 @@ export type Tables<
   }
     ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -170,7 +152,7 @@ export type TablesInsert<
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -195,7 +177,7 @@ export type TablesUpdate<
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -220,7 +202,7 @@ export type Enums<
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    : never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
@@ -237,7 +219,7 @@ export type CompositeTypes<
     schema: keyof DatabaseWithoutInternals
   }
     ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+    : never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
